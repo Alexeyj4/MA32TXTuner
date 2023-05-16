@@ -5,9 +5,9 @@
 //configuration variable:
 const int i_pin=16; //I sensor I pin A2
 const int buzzer_pin=11; //Buzzer pin
-const int i_filter=32; //Filter for i measuring (average)
+const int i_filter=64; //Filter for i measuring (average)
 const int tx_thtreshold=170; //threshold to determine TX on
-const int short_threshold=800; //threshold to determine short cirquit
+const int short_threshold=1000; //threshold to determine short cirquit
 
 
 const int SCREEN_WIDTH=128; // OLED display width, in pixels
@@ -40,7 +40,7 @@ void setup() {
 }
 
 void i_measure(){    
-  int i_sum=0;
+  long i_sum=0;
   for(int i_iter=0;i_iter<i_filter;i_iter++){
     i_sum=i_sum+analogRead(i_pin);    
   }
@@ -96,7 +96,11 @@ void loop() {
     display.setCursor(0,second_string);
     display.print(i_min);
     display.print(" min");
-    display.display();    
+    display.fillRect(0, third_string, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK);
+    display.fillRect(0, third_string, (i-i_min)*3, SCREEN_HEIGHT, WHITE);
+    
+    display.display();
+    
   }
 
   i_delta=i-i_min;
