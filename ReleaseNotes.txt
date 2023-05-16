@@ -1,0 +1,4 @@
+16.05.2023 released beta 1
+need to:
+add short threshold
+fix bug with low i_min lock
